@@ -1,0 +1,77 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.2'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+def home = "$System.env.HOME"//用户目录
+allprojects {
+    repositories {
+
+        maven {
+            url "file://" + home + "/.m2/repository"
+        }
+        mavenCentral()
+
+        jcenter()
+    }
+}
+
+
+
+apply plugin: 'com.android.library'
+
+apply plugin: 'maven'
+
+version '1.0.0'
+group 'com.litesuits.common'
+
+
+android {
+    compileSdkVersion 20
+    buildToolsVersion "20"
+
+    defaultConfig {
+        applicationId "com.litesuits.common"
+        minSdkVersion 8
+        targetSdkVersion 20
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            res.srcDirs = ['res']
+            java.srcDirs = ['src']
+
+        }
+    }
+
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file://" + home + "/.m2/repository")
+            pom.groupId = 'com.litesuits.common'
+            pom.artifactId = 'common'
+            pom.version = '1.0.0'
+        }
+    }
+}
