@@ -34,13 +34,13 @@ group 'com.litesuits.common'
 
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 20
+    buildToolsVersion "20"
 
     defaultConfig {
         applicationId "com.litesuits.common"
         minSdkVersion 8
-        targetSdkVersion 19
+        targetSdkVersion 20
     }
 
     sourceSets {
